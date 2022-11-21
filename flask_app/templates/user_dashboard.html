@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src='../static/Chart.min.js'></script>
+    <title>Account Details</title>
+</head>
+
+<body style="background-image:url('../static/img/background2.jpg'); color:aliceblue;">
+    <div>
+        <nav class="navbar navbar-expand-lg" style="background-color: #00030c;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <div style="margin-left:50px; margin-bottom:20px;margin-right: 10px; padding-top: 10px;">
+                        <img src="../static/img/logo1.png" alt="logo" style="width:55px; height:55px;">
+                    </div>
+                    <a class="navbar-brand" href="#" style="color:rgb(240, 247, 255);">
+                        <h1>VISON WEALTH</h1>
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 250px;">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" style="color:aliceblue;">Home |</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" style="color:aliceblue;">Products
+                                |</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" style="color:aliceblue;">About Us
+                                |</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"
+                                style="color:aliceblue;">Newsletter</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <div>
+            <div class="d-flex" style="justify-content:space-between;">
+                <a href="/user_logout"><button class="btn btn-primary"
+                        style="margin-left:1450px; margin-right:50px; margin-bottom:50px;">Logout</button></a>
+            </div>
+            <div>
+                <h4 style="margin-left:50px; margin-bottom: 50px;">Good day, {{one_user.first_name}}</h4>
+            </div>
+        </div>
+        <div class="d-flex" style="margin-left:50px;">
+            <div>
+                <div class="d-flex">
+                    <div style="font-size:1.5pc">
+                        <p>Investment Account</p>
+                        <!-- #add link to acount balance -->
+                        <p>$</p>
+                    </div>
+                    <div>
+                        <div class="btn btn-outline-primary col-3" style="margin-left:350px; margin-top: 20px;"><a
+                                href="/this_user.investment_account" style="color:white;"
+                                class="text-decoration-none">Account Summary</a></div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div style="font-size:1.5pc">
+                        <p>Checking Account</p>
+                        <!-- #add link to acount balance -->
+                        <p>$</p>
+                    </div>
+                    <div>
+                        <div class="btn btn-outline-primary col-3" style="margin-left:365px; margin-top: 20px;"><a
+                                href="/this_user.checking_account" style="color:white;"
+                                class="text-decoration-none">Account Summary</a></div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div style="font-size:1.5pc">
+                        <p>Savings Account</p>
+                        <!-- #add link to acount balance -->
+                        <p>$</p>
+                    </div>
+                    <div>
+                        <div class="btn btn-outline-primary col-3" style="margin-left:380px; margin-top: 20px;"><a
+                                href="/this_user.savings_account" style="color:white;"
+                                class="text-decoration-none">Account Summary</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="btn btn-outline-primary col-3"><a href="/create" style="color:white;"
+                            class="text-decoration-none">Open New Account</a></div>
+                </div>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td> Stock</td>
+                            <td>Day High</td>
+                            <td>Day Low</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for one_stock in stock_data%}
+                        <tr>
+                            <td><button><a href="/user_dashboard/{{one_stock.symbol}}">{{one_stock.symbol}}</a></button></td>
+                            <td>{{one_stock.day_high}}</td>
+                            <td>{{one_stock.day_low}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        <h1>Simple Line Chart</h1>
+        <!-- bar chart canvas element -->
+        <canvas id="myChart" width="600" height="400"></canvas>
+        <p id="pointSelected">Point selected:</p>    
+    </div>
+
+</body>
+<script>
+    // Global parameters:
+    // do not resize the chart canvas when its container does (keep at 600x400px)
+    Chart.defaults.global.responsive = false;
+
+    // define the chart data
+    var chartData = {
+        labels: [{% for item in labels %}"{{item}}",{% endfor %}],
+        datasets: [{
+        label: '{{ legend }}',
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(75,192,192,1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [{% for item in values %}
+                    {{ item }},
+    {% endfor %}],
+        spanGaps: false
+      }]
+    }
+
+    // get chart canvas
+    var holder = document.getElementById("myChart");
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    // create the chart using the chart canvas
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            tooltips: {
+                enabled: true,
+                mode: 'single',
+                callbacks: {
+                    label: function (tooltipItems, data) {
+                        return tooltipItems.yLabel + ' degrees';
+                    }
+                }
+            },
+        }
+    });
+
+    // get the text element below the chart
+    var pointSelected = document.getElementById("pointSelected");
+
+    // create a callback function for updating the selected index on the chart
+    holder.onclick = function (evt) {
+        var activePoint = myChart.getElementAtEvent(evt);
+        console.log(activePoint);
+        console.log('x:' + activePoint[0]._view.x);
+        console.log('maxWidth: ' + activePoint[0]._xScale.maxWidth);
+        console.log('y: ' + activePoint[0]._view.y);
+        console.log('index: ' + activePoint[0]._index);
+        pointSelected.innerHTML = 'Point selected... index: ' + activePoint[0]._index;
+    };
+</script>
+
+
+</html>
