@@ -55,155 +55,302 @@
     <div>
         <div>
             <div class="d-flex" style="justify-content:space-between;">
+                <a href="/user_account/{{one_user.id}}"><button class="btn btn-primary"
+                        style="margin-left:1217px; margin-right:20px; margin-bottom:50px;">Your Account</button></a>
                 <a href="/user_logout"><button class="btn btn-primary"
-                        style="margin-left:1450px; margin-right:50px; margin-bottom:50px;">Logout</button></a>
+                        style="margin-left:10px; margin-right:13px; margin-bottom:50px;">Logout</button></a>
             </div>
             <div>
-                <h4 style="margin-left:50px; margin-bottom: 50px;">Good day, {{one_user.first_name}}</h4>
+                <h3 style="margin-left:50px; margin-bottom: 50px;">Good day, {{one_user.first_name}}</h3>
+                <h4 style="margin-left:50px; margin-bottom: 50px;">Your Stock Summary</h4>
             </div>
         </div>
-        <div class="d-flex" style="margin-left:50px;">
-            <div>
-                <div class="d-flex">
-                    <div style="font-size:1.5pc">
-                        <p>Investment Account</p>
-                        <!-- #add link to acount balance -->
-                        <p>$</p>
-                    </div>
-                    <div>
-                        <div class="btn btn-outline-primary col-3" style="margin-left:350px; margin-top: 20px;"><a
-                                href="/this_user.investment_account" style="color:white;"
-                                class="text-decoration-none">Account Summary</a></div>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <div style="font-size:1.5pc">
-                        <p>Checking Account</p>
-                        <!-- #add link to acount balance -->
-                        <p>$</p>
-                    </div>
-                    <div>
-                        <div class="btn btn-outline-primary col-3" style="margin-left:365px; margin-top: 20px;"><a
-                                href="/this_user.checking_account" style="color:white;"
-                                class="text-decoration-none">Account Summary</a></div>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <div style="font-size:1.5pc">
-                        <p>Savings Account</p>
-                        <!-- #add link to acount balance -->
-                        <p>$</p>
-                    </div>
-                    <div>
-                        <div class="btn btn-outline-primary col-3" style="margin-left:380px; margin-top: 20px;"><a
-                                href="/this_user.savings_account" style="color:white;"
-                                class="text-decoration-none">Account Summary</a></div>
-                    </div>
-                </div>
-                <div>
-                    <div class="btn btn-outline-primary col-3"><a href="/create" style="color:white;"
-                            class="text-decoration-none">Open New Account</a></div>
-                </div>
-            </div>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td> Stock</td>
-                            <td>Day High</td>
-                            <td>Day Low</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for one_stock in stock_data%}
-                        <tr>
-                            <td><button><a href="/user_dashboard/{{one_stock.symbol}}">{{one_stock.symbol}}</a></button></td>
-                            <td>{{one_stock.day_high}}</td>
-                            <td>{{one_stock.day_low}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+    </div>
+    <div>
+        <table class="table table-dark table-striped-columns" style="margin-left:50px; padding-right:100px;">
+            <thead>
+                <tr>
+                    <td style="width:100px;"> STOCK</td>
+                    <td style="width:100px;">NAME</td>
+                    <td style="width:100px;">DAY HIGH</td>
+                    <td style="width:100px;">DAY LOW</td>
+                    <td style="width:100px;">EARNINGS GROWTH</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for one_stock in stock_data%}
+                <tr>
+                    <td><button><a class="btn btn-success" style="width:100px;"
+                                href="/this_graph/{{one_stock.symbol}}">{{one_stock.symbol}}</a></button>
+                    </td>
+                    <td>{{one_stock.short_name}}</td>
+                    <td>{{one_stock.day_high}}</td>
+                    <td>{{one_stock.day_low}}</td>
+                    <td>{{one_stock.earnings_growth}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
 
-            </div>
-        </div>
-        <h1>Simple Line Chart</h1>
-        <!-- bar chart canvas element -->
-        <canvas id="myChart" width="600" height="400"></canvas>
-        <p id="pointSelected">Point selected:</p>    
+    </div>
+    </div>
+    <h3 style="margin-left:50px; margin-top: 50px;">30 day Summary</h3>
+    <!-- bar chart canvas element -->
+    <canvas id="myChart" width="600" height="400" style="margin-left:50px;"></canvas>
+    <p id="pointSelected" style="margin-left:50px;">Point selected:</p>
     </div>
 
 </body>
-<script>
-    // Global parameters:
-    // do not resize the chart canvas when its container does (keep at 600x400px)
-    Chart.defaults.global.responsive = false;
+<div >
+    <script >
+        // Global parameters:
+        // do not resize the chart canvas when its container does (keep at 600x400px)
+        Chart.defaults.global.responsive = false;
 
-    // define the chart data
-    var chartData = {
-        labels: [{% for item in labels %}"{{item}}",{% endfor %}],
+        // define the chart data
+        var chartData = {
+            labels: [{% for item in labels %}"{{item}}", {% endfor %}],
         datasets: [{
-        label: '{{ legend }}',
-        fill: true,
-        lineTension: 0.1,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "rgba(75,192,192,1)",
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: "rgba(75,192,192,1)",
-        pointBackgroundColor: "#fff",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-        pointHoverBorderColor: "rgba(220,220,220,1)",
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: [{% for item in values %}
+            label: '{{ legend }}',
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [{% for item in values %}
                     {{ item }},
-    {% endfor %}],
-        spanGaps: false
+        {% endfor %}],
+            spanGaps: false
       }]
     }
 
-    // get chart canvas
-    var holder = document.getElementById("myChart");
-    var ctx = document.getElementById("myChart").getContext("2d");
+        // get chart canvas
+        var holder = document.getElementById("myChart");
+        var ctx = document.getElementById("myChart").getContext("2d");
 
-    // create the chart using the chart canvas
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: chartData,
-        options: {
-            tooltips: {
-                enabled: true,
-                mode: 'single',
-                callbacks: {
-                    label: function (tooltipItems, data) {
-                        return tooltipItems.yLabel + ' degrees';
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function (tooltipItems, data) {
+                            return tooltipItems.yLabel + ' degrees';
+                        }
                     }
-                }
-            },
-        }
-    });
+                },
+            }
+        });
 
-    // get the text element below the chart
-    var pointSelected = document.getElementById("pointSelected");
+        // get the text element below the chart
+        var pointSelected = document.getElementById("pointSelected");
 
-    // create a callback function for updating the selected index on the chart
-    holder.onclick = function (evt) {
-        var activePoint = myChart.getElementAtEvent(evt);
-        console.log(activePoint);
-        console.log('x:' + activePoint[0]._view.x);
-        console.log('maxWidth: ' + activePoint[0]._xScale.maxWidth);
-        console.log('y: ' + activePoint[0]._view.y);
-        console.log('index: ' + activePoint[0]._index);
-        pointSelected.innerHTML = 'Point selected... index: ' + activePoint[0]._index;
-    };
-</script>
+        // create a callback function for updating the selected index on the chart
+        holder.onclick = function (evt) {
+            var activePoint = myChart.getElementAtEvent(evt);
+            console.log(activePoint);
+            console.log('x:' + activePoint[0]._view.x);
+            console.log('maxWidth: ' + activePoint[0]._xScale.maxWidth);
+            console.log('y: ' + activePoint[0]._view.y);
+            console.log('index: ' + activePoint[0]._index);
+            pointSelected.innerHTML = 'Point selected... index: ' + activePoint[0]._index;
+        };
+    </script>
+</div>
+<div>
+    <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-facebook-f"></i
+            ></a>
+    
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-twitter"></i
+            ></a>
+    
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-google"></i
+            ></a>
+    
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-instagram"></i
+            ></a>
+    
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-linkedin-in"></i
+            ></a>
+    
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+            ><i class="fab fa-github"></i
+            ></a>
+        </section>
+        <!-- Section: Social media -->
+    
+        <!-- Section: Form -->
+        <section class="">
+            <form action="">
+            <!--Grid row-->
+            <div class="row d-flex justify-content-center">
+                <!--Grid column-->
+                <div class="col-auto">
+                <p class="pt-2">
+                    <strong>Sign up for our newsletter</strong>
+                </p>
+                </div>
+                <!--Grid column-->
+    
+                <!--Grid column-->
+                <div class="col-md-5 col-12">
+                <!-- Email input -->
+                <div class="form-outline form-white mb-4">
+                    <input type="email" id="form5Example21" class="form-control" placeholder="Email Address" />
+                    <label class="form-label" for="form5Example21" ></label>
+                </div>
+                </div>
+                <!--Grid column-->
+    
+                <!--Grid column-->
+                <div class="col-auto">
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-outline-light mb-4">
+                    Subscribe
+                </button>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+            </form>
+        </section>
+        <!-- Section: Form -->
+    
+        <!-- Section: Text -->
+        <section class="mb-4">
+            <p>
+            By subscribing you agree to receive the newsletter and free resources on investment products and services offered through Vison Wealth.
+            </p>
+        </section>
+        <!-- Section: Text -->
+    
+        <!-- Section: Links -->
+        <section class="">
+            <!--Grid row-->
+            <div class="row">
+            <!--Grid column-->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                    Useful links
+                </h6>
+                <p>
+                    <a href="#!" class="text-reset">Wealth Management</a>
+                </p>
+                <p>
+                    <a href="#!" class="text-reset">Open an Account</a>
+                </p>
+                <p>
+                    <a href="#!" class="text-reset">Privacy Policy</a>
+                </p>
+                <p>
+                    <a href="#!" class="text-reset">Help</a>
+                </p>
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h6 class="text-uppercase">Products</h6>
+    
+                <ul class="list-unstyled mb-0">
+                <li>
+                    <a href="#!" class="text-white">Personal Accounts</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Small Business</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Commercial Banking</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Corporate & Investment Banking</a>
+                </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">Contact Us</h6>
+                <p><i class="fas fa-home me-3 text-secondary"></i> 2897 Finance, Alexandria, VA 22307</p>
+                <p>
+                    <i class="fas fa-envelope me-3 text-secondary"></i>
+                    info@visonwealth.com
+                </p>
+                <p><i class="fas fa-phone me-3 text-secondary"></i> (703)258-9788</p>
+                <p><i class="fas fa-print me-3 text-secondary"></i> (703)853-9788</p>
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h6 class="text-uppercase">Links</h6>
+    
+                <ul class="list-unstyled mb-0">
+                <li>
+                    <a href="#!" class="text-white">FAQ's</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Make an Appointment</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Find a Location</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Quick Help</a>
+                </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+        </div>
+        <!-- Grid container -->
+    
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2022 Copyright:
+        <a class="text-white" href="https://visonwealth.com/">visonwealth.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+</div>
 
 
 </html>

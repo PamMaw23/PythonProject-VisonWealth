@@ -5,8 +5,6 @@ from flask_app.models.account_model import Account
 from flask_app.controllers.yahoo_finance import yahoo_test, stock_graph
 from flask_app import app
 from flask import flash
-import yfinance as yf
-import pandas as pd
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -46,23 +44,28 @@ def login():
     return redirect("/user_dashboard")
 
 @app.route("/user_dashboard")
-def show_user(stock=None):
+def show_user():
     if "user_id" not in session:
         return redirect ("/login_page")
     data = {
         "id":session["user_id"]
     }
     one_user= User.get_one(data)
-    all_accounts = Account.get_all()
+    # all_accounts = Account.get_all()
     stock_data= yahoo_test()
-    # legend, values, labels = stock_graph(stock_data[0]["symbol"])
-    #the default graph is the first element in the stock_data dictionary
-    stock_data = yf.Ticker(stock).history(period="1mo")
-    legend = 'Daily Price Tracking'
-    values = stock_data["Close"].to_list()
-    # Close is the column, stock_data is all the data. Data is a dataframe
-    labels = [str(pd.to_datetime(stock_date).date()) for stock_date in stock_data.index]
-    return render_template("user_dashboard.html", one_user=one_user, all_accounts=all_accounts, stock_data=stock_data, values=values, labels=labels, legend=legend)
+    legend, values, labels = stock_graph({"symbol": "MSFT"})
+    return render_template("user_dashboard.html", one_user=one_user, stock_data=stock_data, values=values, labels=labels, legend=legend)
+
+@app.route('/user_account/<int:id>')
+def user_account(id):
+    if "user_id" not in session:
+        return redirect ("/login_page")
+    data = {
+        "id":session["user_id"]
+    }
+    one_user= User.get_one(data)
+    this_account=Account.get_by_id({'id':id})
+    return render_template("view_one_account.html", one_user=one_user)
 
 @app.route('/user_logout')
 def logout():

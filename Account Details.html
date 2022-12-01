@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://127.0.0.1:5000/user_dashboard -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./Account Details_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="./Account Details_files/Chart.min.js.download"></script>
+    <title>Account Details</title>
+</head>
+
+<body style="background-image:url(&#39;../static/img/background2.jpg&#39;); color:aliceblue;">
+    <div>
+        <nav class="navbar navbar-expand-lg" style="background-color: #00030c;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <div style="margin-left:50px; margin-bottom:20px;margin-right: 10px; padding-top: 10px;">
+                        <img src="./Account Details_files/logo1.png" alt="logo" style="width:55px; height:55px;">
+                    </div>
+                    <a class="navbar-brand" href="http://127.0.0.1:5000/user_dashboard#" style="color:rgb(240, 247, 255);">
+                        <h1>VISON WEALTH</h1>
+                    </a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 250px;">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:5000/user_dashboard#" style="color:aliceblue;">Home |</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:5000/user_dashboard#" style="color:aliceblue;">Products
+                                |</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:5000/user_dashboard#" style="color:aliceblue;">About Us
+                                |</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:5000/user_dashboard#" style="color:aliceblue;">Newsletter</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div>
+        <div>
+            <div class="d-flex" style="justify-content:space-between;">
+                <a href="http://127.0.0.1:5000/user_logout"><button class="btn btn-primary" style="margin-left:1428px; margin-right:50px; margin-bottom:50px;">Logout</button></a>
+            </div>
+            <div>
+                <h4 style="margin-left:50px; margin-bottom: 50px;">Good day, Wonder </h4>
+            </div>
+        </div>
+        <div class="d-flex" style="margin-left:50px;">
+            <div>
+                <div class="d-flex">
+                    <div style="font-size:1.5pc">
+                        <p>Investment Account</p>
+                        <!-- #add link to acount balance -->
+                        <p>$</p>
+                    </div>
+                    <div>
+                        <div class="btn btn-outline-primary col-3" style="margin-left:350px; margin-top: 20px;"><a href="http://127.0.0.1:5000/this_user.investment_account" style="color:white;" class="text-decoration-none">Account Summary</a></div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div style="font-size:1.5pc">
+                        <p>Checking Account</p>
+                        <!-- #add link to acount balance -->
+                        <p>$</p>
+                    </div>
+                    <div>
+                        <div class="btn btn-outline-primary col-3" style="margin-left:365px; margin-top: 20px;"><a href="http://127.0.0.1:5000/this_user.checking_account" style="color:white;" class="text-decoration-none">Account Summary</a></div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div style="font-size:1.5pc">
+                        <p>Savings Account</p>
+                        <!-- #add link to acount balance -->
+                        <p>$</p>
+                    </div>
+                    <div>
+                        <div class="btn btn-outline-primary col-3" style="margin-left:380px; margin-top: 20px;"><a href="http://127.0.0.1:5000/this_user.savings_account" style="color:white;" class="text-decoration-none">Account Summary</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="btn btn-outline-primary col-3"><a href="http://127.0.0.1:5000/create" style="color:white;" class="text-decoration-none">Open New Account</a></div>
+                </div>
+            </div>
+            <div>
+                <table class="table table-dark table-striped-columns">
+                    <thead>
+                        <tr>
+                                <td style="width:150px;"> STOCK</td>
+                                <td style="width:150px;">NAME</td>
+                                <td style="width:150px;">DAY HIGH</td>
+                                <td style="width:150px;">DAY LOW</td>
+                                <td style="width:150px;">EARNINGS GROWTH</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/MSFT">MSFT</a></button>
+                            </td>
+                            <td>Microsoft Corporation</td>
+                            <td>243.74</td>
+                            <td>239.03</td>
+                            <td>-0.133</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/GOOGL">GOOGL</a></button>
+                            </td>
+                            <td>Alphabet Inc.</td>
+                            <td>98.89</td>
+                            <td>96.37</td>
+                            <td>-0.241</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/AMZN">AMZN</a></button>
+                            </td>
+                            <td>Amazon.com, Inc.</td>
+                            <td>95.97</td>
+                            <td>92.4839</td>
+                            <td>-0.097</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/AAPL">AAPL</a></button>
+                            </td>
+                            <td>Apple Inc.</td>
+                            <td>152.57</td>
+                            <td>149.97</td>
+                            <td>0.048</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/TSLA">TSLA</a></button>
+                            </td>
+                            <td>Tesla, Inc.</td>
+                            <td>185.16</td>
+                            <td>176.55</td>
+                            <td>0.977</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/COIN">COIN</a></button>
+                            </td>
+                            <td>Coinbase Global, Inc.</td>
+                            <td>48.95</td>
+                            <td>44.31</td>
+                            <td>None</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/AG">AG</a></button>
+                            </td>
+                            <td>First Majestic Silver Corp.</td>
+                            <td>9.1381</td>
+                            <td>8.92</td>
+                            <td>None</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/DG">DG</a></button>
+                            </td>
+                            <td>Dollar General Corporation</td>
+                            <td>259.43</td>
+                            <td>253.53</td>
+                            <td>0.108</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button><a class="btn btn-success" style="width:100px;" href="http://127.0.0.1:5000/user_dashboard/SAVA">SAVA</a></button>
+                            </td>
+                            <td>Cassava Sciences, Inc.</td>
+                            <td>36.5</td>
+                            <td>29.5037</td>
+                            <td>None</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        <h1>Simple Line Chart</h1>
+        <!-- bar chart canvas element -->
+        <canvas id="myChart" width="750" height="500" style="display: block; height: 400px; width: 600px;"></canvas>
+        <p id="pointSelected">Point selected:</p>
+    </div>
+
+
+<script>
+    // Global parameters:
+    // do not resize the chart canvas when its container does (keep at 600x400px)
+    Chart.defaults.global.responsive = false;
+
+    // define the chart data
+    var chartData = {
+        labels: ["2022-10-19", "2022-10-20", "2022-10-21", "2022-10-24", "2022-10-25", "2022-10-26", "2022-10-27", "2022-10-28", "2022-10-31", "2022-11-01", "2022-11-02", "2022-11-03", "2022-11-04", "2022-11-07", "2022-11-08", "2022-11-09", "2022-11-10", "2022-11-11", "2022-11-14", "2022-11-15", "2022-11-16", "2022-11-17", "2022-11-18", ],
+    datasets: [{
+        label: 'Daily Price Tracking',
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: "rgba(75,192,192,1)",
+        pointBackgroundColor: "#fff",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        pointHoverBorderColor: "rgba(220,220,220,1)",
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [
+                    235.8154296875,
+    
+                    235.48635864257812,
+    
+                    241.4395751953125,
+    
+                    246.55517578125,
+    
+                    249.95558166503906,
+    
+                    230.66993713378906,
+    
+                    226.11277770996094,
+    
+                    235.20713806152344,
+    
+                    231.4776611328125,
+    
+                    227.52879333496094,
+    
+                    219.48147583007812,
+    
+                    213.6479034423828,
+    
+                    220.76783752441406,
+    
+                    227.22962951660156,
+    
+                    228.22682189941406,
+    
+                    223.8790740966797,
+    
+                    242.2971649169922,
+    
+                    246.41555786132812,
+    
+                    240.87118530273438,
+    
+                    241.29000854492188,
+    
+                    241.72999572753906,
+    
+                    241.67999267578125,
+    
+                    241.22000122070312,
+    ],
+        spanGaps: false
+      }]
+    }
+
+    // get chart canvas
+    var holder = document.getElementById("myChart");
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    // create the chart using the chart canvas
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            tooltips: {
+                enabled: true,
+                mode: 'single',
+                callbacks: {
+                    label: function (tooltipItems, data) {
+                        return tooltipItems.yLabel + ' degrees';
+                    }
+                }
+            },
+        }
+    });
+
+    // get the text element below the chart
+    var pointSelected = document.getElementById("pointSelected");
+
+    // create a callback function for updating the selected index on the chart
+    holder.onclick = function (evt) {
+        var activePoint = myChart.getElementAtEvent(evt);
+        console.log(activePoint);
+        console.log('x:' + activePoint[0]._view.x);
+        console.log('maxWidth: ' + activePoint[0]._xScale.maxWidth);
+        console.log('y: ' + activePoint[0]._view.y);
+        console.log('index: ' + activePoint[0]._index);
+        pointSelected.innerHTML = 'Point selected... index: ' + activePoint[0]._index;
+    };
+</script>
+
+
+<div id="trend_notification_app" class="trend_notification_app_outer"><div id="trend_notification"><div id="trend_notification_con" class="clearfix"></div></div></div><div id="UMS_TOOLTIP" style="position: absolute; cursor: pointer; z-index: 2147483647; background: transparent; top: -100000px; left: -100000px;"></div></body><umsdataelement id="UMSSendDataEventElement" data="http://127.0.0.1:5000/user_dashboard/COIN" docguid="null"></umsdataelement><div id="tmtoolbar_manual_rating_injected" style="display: none;">init</div></html>

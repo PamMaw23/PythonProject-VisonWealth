@@ -31,3 +31,14 @@ def create_account():
     }
     Account.create(account_data)
     return redirect('/user_dashboard')
+
+@app.route('/this_account/<int:id>')
+def this_account(id):
+    if "user_id" not in session:
+        return redirect ("/login_page")
+    data = {
+        "id":session["user_id"]
+    }
+    one_user= User.get_one(data)
+    one_account=Account.get_by_id({'id':id})
+    return render_template("view_one_account.html", one_user=one_user, one_account=one_account)
